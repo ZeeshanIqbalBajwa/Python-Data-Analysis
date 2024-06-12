@@ -1,0 +1,855 @@
+{
+  "__inputs": [
+    {
+      "name": "DS_GRAFANADASHBOARDV0.1",
+      "label": "GrafanaDashboardv0.1",
+      "description": "",
+      "type": "datasource",
+      "pluginId": "mysql",
+      "pluginName": "MySQL"
+    }
+  ],
+  "__elements": {},
+  "__requires": [
+    {
+      "type": "panel",
+      "id": "geomap",
+      "name": "Geomap",
+      "version": ""
+    },
+    {
+      "type": "grafana",
+      "id": "grafana",
+      "name": "Grafana",
+      "version": "10.1.5"
+    },
+    {
+      "type": "datasource",
+      "id": "mysql",
+      "name": "MySQL",
+      "version": "1.0.0"
+    },
+    {
+      "type": "panel",
+      "id": "table",
+      "name": "Table",
+      "version": ""
+    }
+  ],
+  "annotations": {
+    "list": [
+      {
+        "builtIn": 1,
+        "datasource": {
+          "type": "grafana",
+          "uid": "-- Grafana --"
+        },
+        "enable": true,
+        "hide": true,
+        "iconColor": "rgba(0, 211, 255, 1)",
+        "name": "Annotations & Alerts",
+        "type": "dashboard"
+      }
+    ]
+  },
+  "editable": true,
+  "fiscalYearStartMonth": 0,
+  "graphTooltip": 0,
+  "id": null,
+  "links": [],
+  "liveNow": false,
+  "panels": [
+    {
+      "datasource": {
+        "type": "mysql",
+        "uid": "${DS_GRAFANADASHBOARDV0.1}"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "custom": {
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            }
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 10,
+        "w": 24,
+        "x": 0,
+        "y": 0
+      },
+      "id": 2,
+      "options": {
+        "basemap": {
+          "config": {},
+          "name": "Layer 0",
+          "type": "osm-standard"
+        },
+        "controls": {
+          "mouseWheelZoom": true,
+          "showAttribution": true,
+          "showDebug": false,
+          "showMeasure": false,
+          "showScale": false,
+          "showZoom": true
+        },
+        "layers": [
+          {
+            "config": {
+              "showLegend": true,
+              "style": {
+                "color": {
+                  "fixed": "dark-green"
+                },
+                "opacity": 0.7,
+                "rotation": {
+                  "fixed": 0,
+                  "max": 360,
+                  "min": -360,
+                  "mode": "mod"
+                },
+                "size": {
+                  "fixed": 5,
+                  "max": 15,
+                  "min": 2
+                },
+                "symbol": {
+                  "field": "",
+                  "fixed": "img/icons/marker/square.svg",
+                  "mode": "fixed"
+                },
+                "textConfig": {
+                  "fontSize": 12,
+                  "offsetX": 0,
+                  "offsetY": 0,
+                  "textAlign": "center",
+                  "textBaseline": "middle"
+                }
+              }
+            },
+            "name": "Layer 1",
+            "tooltip": true,
+            "type": "markers"
+          }
+        ],
+        "tooltip": {
+          "mode": "details"
+        },
+        "view": {
+          "allLayers": true,
+          "id": "fit",
+          "lat": 0,
+          "lon": 0,
+          "zoom": 15
+        }
+      },
+      "pluginVersion": "10.1.5",
+      "targets": [
+        {
+          "dataset": "demodb",
+          "datasource": {
+            "type": "mysql",
+            "uid": "${DS_GRAFANADASHBOARDV0.1}"
+          },
+          "editorMode": "code",
+          "format": "table",
+          "rawQuery": true,
+          "rawSql": "SELECT \r\n  siteId,\r\n  siteName,\r\n  equipmentType,\r\n  region,\r\n  softwareVersion,\r\n  chassisType,\r\n  lat,\r\n  lng\r\nFROM grafana_dashboards.ne_inventory\r\nWHERE region IN ($Region) AND equipmentType IN ($equipmentType) AND chassisType IN ($chassisType) AND siteId IN ($siteId) AND softwareVersion IN ($softwareVersion);\r\n",
+          "refId": "A",
+          "sql": {
+            "columns": [
+              {
+                "parameters": [],
+                "type": "function"
+              }
+            ],
+            "groupBy": [
+              {
+                "property": {
+                  "type": "string"
+                },
+                "type": "groupBy"
+              }
+            ],
+            "limit": 50
+          }
+        }
+      ],
+      "title": "Map",
+      "transformations": [
+        {
+          "id": "organize",
+          "options": {
+            "excludeByName": {
+              "lat": false,
+              "lng": false
+            },
+            "indexByName": {},
+            "renameByName": {
+              "Chassis Type": "Chassis Type",
+              "NW Layer": "NW Layer",
+              "Region": "region",
+              "SW Version": "SW Version",
+              "Site Id": "Site Id",
+              "Site Name": "Site Name",
+              "chassisType": "Chassis Type",
+              "equipmentType": "Network Layer",
+              "lat": "Latitude",
+              "lng": "Longitude",
+              "region": "Region",
+              "siteId": "Site Id",
+              "siteName": "Site Name",
+              "softwareVersion": "SW Version"
+            }
+          }
+        }
+      ],
+      "type": "geomap"
+    },
+    {
+      "datasource": {
+        "type": "mysql",
+        "uid": "${DS_GRAFANADASHBOARDV0.1}"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "custom": {
+            "align": "auto",
+            "cellOptions": {
+              "type": "auto"
+            },
+            "inspect": false
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "siteId"
+            },
+            "properties": [
+              {
+                "id": "custom.cellOptions",
+                "value": {
+                  "type": "color-text"
+                }
+              },
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "#c3af18",
+                  "mode": "fixed"
+                }
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "siteName"
+            },
+            "properties": [
+              {
+                "id": "custom.cellOptions",
+                "value": {
+                  "type": "color-text"
+                }
+              },
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "#21b08e",
+                  "mode": "fixed"
+                }
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "softwareVersion"
+            },
+            "properties": [
+              {
+                "id": "custom.cellOptions",
+                "value": {
+                  "type": "color-text"
+                }
+              },
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "#b35097",
+                  "mode": "fixed"
+                }
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "region"
+            },
+            "properties": [
+              {
+                "id": "custom.cellOptions",
+                "value": {
+                  "type": "color-text"
+                }
+              },
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "#dea9a9",
+                  "mode": "fixed"
+                }
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "equipmentType"
+            },
+            "properties": [
+              {
+                "id": "custom.cellOptions",
+                "value": {
+                  "type": "color-text"
+                }
+              },
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "#da5d09",
+                  "mode": "fixed"
+                }
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Chassis Type"
+            },
+            "properties": [
+              {
+                "id": "custom.cellOptions",
+                "value": {
+                  "type": "color-text"
+                }
+              },
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "#7a97c3",
+                  "mode": "fixed"
+                }
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "S.No"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 20
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Support Status"
+            },
+            "properties": [
+              {
+                "id": "custom.cellOptions",
+                "value": {
+                  "type": "color-text"
+                }
+              },
+              {
+                "id": "mappings",
+                "value": [
+                  {
+                    "options": {
+                      "Active": {
+                        "color": "dark-green",
+                        "index": 0
+                      },
+                      "Expired": {
+                        "color": "dark-red",
+                        "index": 1
+                      },
+                      "No data": {
+                        "color": "text",
+                        "index": 2
+                      },
+                      "Warning": {
+                        "color": "dark-yellow",
+                        "index": 3
+                      }
+                    },
+                    "type": "value"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "EOM"
+            },
+            "properties": [
+              {
+                "id": "custom.cellOptions",
+                "value": {
+                  "type": "color-text"
+                }
+              },
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "light-purple",
+                  "mode": "fixed"
+                }
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "EOL"
+            },
+            "properties": [
+              {
+                "id": "mappings",
+                "value": [
+                  {
+                    "options": {
+                      "NOK": {
+                        "color": "red",
+                        "index": 1
+                      },
+                      "OK": {
+                        "color": "green",
+                        "index": 0
+                      },
+                      "Warning": {
+                        "color": "yellow",
+                        "index": 2
+                      }
+                    },
+                    "type": "value"
+                  }
+                ]
+              },
+              {
+                "id": "custom.cellOptions",
+                "value": {
+                  "type": "color-text"
+                }
+              }
+            ]
+          }
+        ]
+      },
+      "gridPos": {
+        "h": 11,
+        "w": 24,
+        "x": 0,
+        "y": 10
+      },
+      "id": 1,
+      "options": {
+        "cellHeight": "sm",
+        "footer": {
+          "countRows": false,
+          "enablePagination": true,
+          "fields": "",
+          "reducer": [
+            "sum"
+          ],
+          "show": false
+        },
+        "showHeader": true,
+        "sortBy": []
+      },
+      "pluginVersion": "10.1.5",
+      "targets": [
+        {
+          "dataset": "demodb",
+          "datasource": {
+            "type": "mysql",
+            "uid": "${DS_GRAFANADASHBOARDV0.1}"
+          },
+          "editorMode": "code",
+          "format": "table",
+          "rawQuery": true,
+          "rawSql": "SELECT\r\n    ROW_NUMBER() OVER (ORDER BY siteId) AS serialNumber,\r\n    siteId,\r\n    siteName,\r\n    softwareVersion,\r\n    chassisType,\r\n    CASE\r\n        WHEN DATEDIFF(expiredDate, CURDATE()) > 180 THEN 'Active'\r\n        WHEN DATEDIFF(expiredDate, CURDATE()) <= 180 AND expiredDate >= CURDATE() THEN 'Warning'\r\n        WHEN expiredDate IS NULL OR expiredDate = '' THEN 'Active'\r\n        WHEN DATEDIFF(expiredDate, CURDATE()) <= 0 THEN 'Expired'\r\n    END AS Status,\r\n    DATE_FORMAT(expiredDate, '%d/%m/%y') AS EOM,\r\n    region,\r\n    equipmentType,\r\n    `EOL`\r\nFROM           \r\n    grafana_dashboards.ne_inventory\r\nWHERE\r\n    product IN ($vendor)\r\n    AND region IN ($Region)\r\n    AND equipmentType IN ($equipmentType)\r\n    AND softwareVersion IN ($softwareVersion)\r\n    AND chassisType IN ($chassisType)\r\n    AND siteId IN ($siteId)\r\n    AND (\r\n        ('All' IN ($deviceStatus))\r\n        OR\r\n        ('Active' IN ($deviceStatus) AND (DATEDIFF(expiredDate, CURDATE()) > 180 OR expiredDate IS NULL OR expiredDate = '0000-00-00' OR expiredDate = ''))\r\n        OR\r\n        ('Going To Expire' IN ($deviceStatus) AND (DATEDIFF(expiredDate, CURDATE()) <= 180 AND expiredDate >= CURDATE()))\r\n        OR\r\n        ('Expired' IN ($deviceStatus) AND DATEDIFF(expiredDate, CURDATE()) <= 0)\r\n    )   \r\n    AND (\r\n        (`EOL` IN ($EOL) OR ('OK' IN ($EOL) AND `EOL` IS NULL))\r\n    ); \r\n",
+          "refId": "A",
+          "sql": {
+            "columns": [
+              {
+                "parameters": [],
+                "type": "function"
+              }
+            ],
+            "groupBy": [
+              {
+                "property": {
+                  "type": "string"
+                },
+                "type": "groupBy"
+              }
+            ],
+            "limit": 50
+          }
+        }
+      ],
+      "title": "Detail View",
+      "transformations": [
+        {
+          "id": "organize",
+          "options": {
+            "excludeByName": {},
+            "indexByName": {},
+            "renameByName": {
+              "EOL": "EOL",
+              "EOM": "EOM",
+              "Status": "Support Status",
+              "chassisType": "Chassis Type",
+              "cruncher Result": "EOL",
+              "equipmentType": "NW Layer",
+              "region": "Region",
+              "serialNumber": "S.No",
+              "siteId": "Site Id",
+              "siteName": "Site Name",
+              "softwareVersion": "SW Version"
+            }
+          }
+        }
+      ],
+      "type": "table"
+    }
+  ],
+  "refresh": "",
+  "schemaVersion": 38,
+  "style": "dark",
+  "tags": [],
+  "templating": {
+    "list": [
+      {
+        "current": {
+          "selected": false,
+          "text": [
+            "All"
+          ],
+          "value": [
+            "$__all"
+          ]
+        },
+        "hide": 0,
+        "includeAll": true,
+        "label": "Vendor",
+        "multi": true,
+        "name": "vendor",
+        "options": [
+          {
+            "selected": true,
+            "text": "All",
+            "value": "$__all"
+          },
+          {
+            "selected": false,
+            "text": "Nokia",
+            "value": "Nokia"
+          },
+          {
+            "selected": false,
+            "text": "Cisco",
+            "value": "Cisco"
+          }
+        ],
+        "query": "Nokia,Cisco",
+        "queryValue": "",
+        "skipUrlSync": false,
+        "type": "custom"
+      },
+      {
+        "current": {
+          "selected": false,
+          "text": [
+            "All"
+          ],
+          "value": [
+            "$__all"
+          ]
+        },
+        "hide": 0,
+        "includeAll": true,
+        "label": "Select Region",
+        "multi": true,
+        "name": "Region",
+        "options": [
+          {
+            "selected": true,
+            "text": "All",
+            "value": "$__all"
+          },
+          {
+            "selected": false,
+            "text": "DXB",
+            "value": "DXB"
+          },
+          {
+            "selected": false,
+            "text": "AUH",
+            "value": "AUH"
+          },
+          {
+            "selected": false,
+            "text": "NE",
+            "value": "NE"
+          }
+        ],
+        "query": "DXB,AUH,NE",
+        "queryValue": "",
+        "skipUrlSync": false,
+        "type": "custom"
+      },
+      {
+        "current": {
+          "selected": false,
+          "text": [
+            "All"
+          ],
+          "value": [
+            "$__all"
+          ]
+        },
+        "hide": 0,
+        "includeAll": true,
+        "label": "Network Layer",
+        "multi": true,
+        "name": "equipmentType",
+        "options": [
+          {
+            "selected": true,
+            "text": "All",
+            "value": "$__all"
+          },
+          {
+            "selected": false,
+            "text": "AGG",
+            "value": "AGG"
+          },
+          {
+            "selected": false,
+            "text": "CSG",
+            "value": "CSG"
+          },
+          {
+            "selected": false,
+            "text": "PREAGG",
+            "value": "PREAGG"
+          }
+        ],
+        "query": "AGG,CSG,PREAGG",
+        "queryValue": "",
+        "skipUrlSync": false,
+        "type": "custom"
+      },
+      {
+        "current": {},
+        "datasource": {
+          "type": "mysql",
+          "uid": "${DS_GRAFANADASHBOARDV0.1}"
+        },
+        "definition": "SELECT DISTINCT chassisType\nFROM grafana_dashboards.ne_inventory WHERE region IN ($Region) AND equipmentType IN ($equipmentType);",
+        "hide": 0,
+        "includeAll": true,
+        "label": "Chassis Type",
+        "multi": true,
+        "name": "chassisType",
+        "options": [],
+        "query": "SELECT DISTINCT chassisType\nFROM grafana_dashboards.ne_inventory WHERE region IN ($Region) AND equipmentType IN ($equipmentType);",
+        "refresh": 1,
+        "regex": "",
+        "skipUrlSync": false,
+        "sort": 0,
+        "type": "query"
+      },
+      {
+        "current": {},
+        "datasource": {
+          "type": "mysql",
+          "uid": "${DS_GRAFANADASHBOARDV0.1}"
+        },
+        "definition": "SELECT DISTINCT softwareVersion\nFROM grafana_dashboards.ne_inventory\nWHERE region IN ($Region) AND equipmentType IN ($equipmentType) AND chassisType IN ($chassisType);",
+        "hide": 0,
+        "includeAll": true,
+        "label": "SW Version",
+        "multi": true,
+        "name": "softwareVersion",
+        "options": [],
+        "query": "SELECT DISTINCT softwareVersion\nFROM grafana_dashboards.ne_inventory\nWHERE region IN ($Region) AND equipmentType IN ($equipmentType) AND chassisType IN ($chassisType);",
+        "refresh": 1,
+        "regex": "",
+        "skipUrlSync": false,
+        "sort": 0,
+        "type": "query"
+      },
+      {
+        "current": {},
+        "datasource": {
+          "type": "mysql",
+          "uid": "${DS_GRAFANADASHBOARDV0.1}"
+        },
+        "definition": "SELECT siteId\nFROM grafana_dashboards.ne_inventory\nWHERE region IN ($Region) AND equipmentType IN ($equipmentType) AND chassisType IN ($chassisType) AND softwareVersion IN ($softwareVersion);",
+        "hide": 0,
+        "includeAll": true,
+        "label": "Select Site",
+        "multi": true,
+        "name": "siteId",
+        "options": [],
+        "query": "SELECT siteId\nFROM grafana_dashboards.ne_inventory\nWHERE region IN ($Region) AND equipmentType IN ($equipmentType) AND chassisType IN ($chassisType) AND softwareVersion IN ($softwareVersion);",
+        "refresh": 1,
+        "regex": "",
+        "skipUrlSync": false,
+        "sort": 0,
+        "type": "query"
+      },
+      {
+        "current": {
+          "selected": true,
+          "text": "All",
+          "value": "$__all"
+        },
+        "hide": 0,
+        "includeAll": true,
+        "label": "Support Status",
+        "multi": false,
+        "name": "deviceStatus",
+        "options": [
+          {
+            "selected": true,
+            "text": "All",
+            "value": "$__all"
+          },
+          {
+            "selected": false,
+            "text": "Active",
+            "value": "Active"
+          },
+          {
+            "selected": false,
+            "text": "Expired",
+            "value": "Expired"
+          },
+          {
+            "selected": false,
+            "text": "Going To Expire",
+            "value": "Going To Expire"
+          }
+        ],
+        "query": "Active,Expired, Going To Expire",
+        "queryValue": "",
+        "skipUrlSync": false,
+        "type": "custom"
+      },
+      {
+        "current": {
+          "selected": true,
+          "text": [
+            "All"
+          ],
+          "value": [
+            "$__all"
+          ]
+        },
+        "hide": 0,
+        "includeAll": true,
+        "label": "EOL",
+        "multi": true,
+        "name": "EOL",
+        "options": [
+          {
+            "selected": true,
+            "text": "All",
+            "value": "$__all"
+          },
+          {
+            "selected": false,
+            "text": "OK",
+            "value": "OK"
+          },
+          {
+            "selected": false,
+            "text": "NOK",
+            "value": "NOK"
+          },
+          {
+            "selected": false,
+            "text": "Warning",
+            "value": "Warning"
+          }
+        ],
+        "query": "OK,NOK,Warning",
+        "queryValue": "",
+        "skipUrlSync": false,
+        "type": "custom"
+      }
+    ]
+  },
+  "time": {
+    "from": "2023-04-08T11:25:55.220Z",
+    "to": "2024-09-01T11:25:55.220Z"
+  },
+  "timepicker": {},
+  "timezone": "",
+  "title": "Chassis Type Details",
+  "uid": "c3dbc4db-cbf5-4d0d-bded-cfd208beb358",
+  "version": 22,
+  "weekStart": ""
+}

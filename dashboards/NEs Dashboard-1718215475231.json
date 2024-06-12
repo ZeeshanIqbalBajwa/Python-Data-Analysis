@@ -1,0 +1,872 @@
+{
+  "__inputs": [
+    {
+      "name": "DS_GRAFANADASHBOARDV0.1",
+      "label": "GrafanaDashboardv0.1",
+      "description": "",
+      "type": "datasource",
+      "pluginId": "mysql",
+      "pluginName": "MySQL"
+    }
+  ],
+  "__elements": {},
+  "__requires": [
+    {
+      "type": "panel",
+      "id": "bargauge",
+      "name": "Bar gauge",
+      "version": ""
+    },
+    {
+      "type": "panel",
+      "id": "gauge",
+      "name": "Gauge",
+      "version": ""
+    },
+    {
+      "type": "grafana",
+      "id": "grafana",
+      "name": "Grafana",
+      "version": "10.1.5"
+    },
+    {
+      "type": "datasource",
+      "id": "mysql",
+      "name": "MySQL",
+      "version": "1.0.0"
+    },
+    {
+      "type": "panel",
+      "id": "table",
+      "name": "Table",
+      "version": ""
+    }
+  ],
+  "annotations": {
+    "list": [
+      {
+        "builtIn": 1,
+        "datasource": {
+          "type": "grafana",
+          "uid": "-- Grafana --"
+        },
+        "enable": true,
+        "hide": true,
+        "iconColor": "rgba(0, 211, 255, 1)",
+        "name": "Annotations & Alerts",
+        "type": "dashboard"
+      }
+    ]
+  },
+  "editable": true,
+  "fiscalYearStartMonth": 0,
+  "graphTooltip": 0,
+  "id": null,
+  "links": [],
+  "liveNow": false,
+  "panels": [
+    {
+      "datasource": {
+        "type": "mysql",
+        "uid": "${DS_GRAFANADASHBOARDV0.1}"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "#EAB839",
+                "value": 1000
+              },
+              {
+                "color": "#6ED0E0",
+                "value": 2000
+              },
+              {
+                "color": "#EF843C",
+                "value": 3000
+              },
+              {
+                "color": "purple",
+                "value": 4000
+              },
+              {
+                "color": "red",
+                "value": 5000
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 9,
+        "w": 8,
+        "x": 0,
+        "y": 0
+      },
+      "id": 1,
+      "options": {
+        "minVizHeight": 75,
+        "minVizWidth": 75,
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "showThresholdLabels": false,
+        "showThresholdMarkers": true
+      },
+      "pluginVersion": "10.1.5",
+      "targets": [
+        {
+          "dataset": "demodb",
+          "datasource": {
+            "type": "mysql",
+            "uid": "${DS_GRAFANADASHBOARDV0.1}"
+          },
+          "editorMode": "code",
+          "format": "table",
+          "rawQuery": true,
+          "rawSql": "SELECT COUNT(*) AS Total\r\nFROM grafana_dashboards.ne_inventory\r\nWHERE equipmentType IN ('AGG', 'PREAGG', 'CSG') AND region IN ($Region) AND product in ($vendor);",
+          "refId": "A",
+          "sql": {
+            "columns": [
+              {
+                "parameters": [],
+                "type": "function"
+              }
+            ],
+            "groupBy": [
+              {
+                "property": {
+                  "type": "string"
+                },
+                "type": "groupBy"
+              }
+            ],
+            "limit": 50
+          }
+        },
+        {
+          "dataset": "demodb",
+          "datasource": {
+            "type": "mysql",
+            "uid": "${DS_GRAFANADASHBOARDV0.1}"
+          },
+          "editorMode": "code",
+          "format": "table",
+          "hide": false,
+          "rawQuery": true,
+          "rawSql": "SELECT COUNT(*) AS AGG\r\nFROM grafana_dashboards.ne_inventory\r\nWHERE equipmentType IN ('AGG') AND region IN ($Region) AND product in ($vendor);",
+          "refId": "B",
+          "sql": {
+            "columns": [
+              {
+                "parameters": [],
+                "type": "function"
+              }
+            ],
+            "groupBy": [
+              {
+                "property": {
+                  "type": "string"
+                },
+                "type": "groupBy"
+              }
+            ],
+            "limit": 50
+          }
+        },
+        {
+          "dataset": "demodb",
+          "datasource": {
+            "type": "mysql",
+            "uid": "${DS_GRAFANADASHBOARDV0.1}"
+          },
+          "editorMode": "code",
+          "format": "table",
+          "hide": false,
+          "rawQuery": true,
+          "rawSql": "SELECT COUNT(*) AS PREAGG\r\nFROM grafana_dashboards.ne_inventory\r\nWHERE equipmentType IN ('PREAGG') AND region IN ($Region) AND product in ($vendor);",
+          "refId": "C",
+          "sql": {
+            "columns": [
+              {
+                "parameters": [],
+                "type": "function"
+              }
+            ],
+            "groupBy": [
+              {
+                "property": {
+                  "type": "string"
+                },
+                "type": "groupBy"
+              }
+            ],
+            "limit": 50
+          }
+        },
+        {
+          "dataset": "demodb",
+          "datasource": {
+            "type": "mysql",
+            "uid": "${DS_GRAFANADASHBOARDV0.1}"
+          },
+          "editorMode": "code",
+          "format": "table",
+          "hide": false,
+          "rawQuery": true,
+          "rawSql": "SELECT COUNT(*) AS CSG\r\nFROM grafana_dashboards.ne_inventory\r\nWHERE equipmentType IN ('CSG') AND region IN ($Region) AND product in ($vendor);",
+          "refId": "D",
+          "sql": {
+            "columns": [
+              {
+                "parameters": [],
+                "type": "function"
+              }
+            ],
+            "groupBy": [
+              {
+                "property": {
+                  "type": "string"
+                },
+                "type": "groupBy"
+              }
+            ],
+            "limit": 50
+          }
+        }
+      ],
+      "title": "NEs (Region: $Region)",
+      "type": "gauge"
+    },
+    {
+      "datasource": {
+        "type": "mysql",
+        "uid": "${DS_GRAFANADASHBOARDV0.1}"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "continuous-GrYlRd"
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "#EAB839",
+                "value": 1000
+              },
+              {
+                "color": "#6ED0E0",
+                "value": 2000
+              },
+              {
+                "color": "#EF843C",
+                "value": 3000
+              },
+              {
+                "color": "purple",
+                "value": 4000
+              },
+              {
+                "color": "light-red",
+                "value": 5000
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 9,
+        "w": 8,
+        "x": 8,
+        "y": 0
+      },
+      "id": 2,
+      "options": {
+        "displayMode": "basic",
+        "minVizHeight": 10,
+        "minVizWidth": 0,
+        "namePlacement": "auto",
+        "orientation": "horizontal",
+        "reduceOptions": {
+          "calcs": [],
+          "fields": "",
+          "values": true
+        },
+        "showUnfilled": true,
+        "valueMode": "color"
+      },
+      "pluginVersion": "10.1.5",
+      "targets": [
+        {
+          "dataset": "demodb",
+          "datasource": {
+            "type": "mysql",
+            "uid": "${DS_GRAFANADASHBOARDV0.1}"
+          },
+          "editorMode": "code",
+          "format": "table",
+          "rawQuery": true,
+          "rawSql": "SELECT chassisType, COUNT(*) total\r\nFROM grafana_dashboards.ne_inventory\r\nWHERE equipmentType IN ($equipmentType) AND region IN ($Region)  AND product in ($vendor) GROUP BY chassisType  ORDER BY total DESC;",
+          "refId": "A",
+          "sql": {
+            "columns": [
+              {
+                "parameters": [],
+                "type": "function"
+              }
+            ],
+            "groupBy": [
+              {
+                "property": {
+                  "type": "string"
+                },
+                "type": "groupBy"
+              }
+            ],
+            "limit": 50
+          }
+        }
+      ],
+      "title": "Chassis Type  (Region: $Region, NW Layer: $equipmentType)",
+      "type": "bargauge"
+    },
+    {
+      "datasource": {
+        "type": "mysql",
+        "uid": "${DS_GRAFANADASHBOARDV0.1}"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "links": [],
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "dark-green",
+                "value": 100
+              },
+              {
+                "color": "#EAB839",
+                "value": 1000
+              },
+              {
+                "color": "dark-orange",
+                "value": 2000
+              },
+              {
+                "color": "red",
+                "value": 3000
+              },
+              {
+                "color": "dark-red",
+                "value": 4000
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 9,
+        "w": 8,
+        "x": 16,
+        "y": 0
+      },
+      "id": 3,
+      "options": {
+        "displayMode": "basic",
+        "minVizHeight": 10,
+        "minVizWidth": 0,
+        "namePlacement": "auto",
+        "orientation": "horizontal",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": true
+        },
+        "showUnfilled": true,
+        "valueMode": "color"
+      },
+      "pluginVersion": "10.1.5",
+      "targets": [
+        {
+          "dataset": "demodb",
+          "datasource": {
+            "type": "mysql",
+            "uid": "${DS_GRAFANADASHBOARDV0.1}"
+          },
+          "editorMode": "code",
+          "format": "table",
+          "rawQuery": true,
+          "rawSql": "SELECT softwareVersion, COUNT(*) AS Total\r\nFROM grafana_dashboards.ne_inventory\r\nWHERE equipmentType IN ($equipmentType) AND region IN ($Region)  AND product in ($vendor) GROUP BY softwareVersion ORDER BY Total DESC;;\r\n",
+          "refId": "A",
+          "sql": {
+            "columns": [
+              {
+                "parameters": [],
+                "type": "function"
+              }
+            ],
+            "groupBy": [
+              {
+                "property": {
+                  "type": "string"
+                },
+                "type": "groupBy"
+              }
+            ],
+            "limit": 50
+          }
+        }
+      ],
+      "title": "SW Version (Region: $Region, NW Layer: $equipmentType)",
+      "type": "bargauge"
+    },
+    {
+      "datasource": {
+        "type": "mysql",
+        "uid": "${DS_GRAFANADASHBOARDV0.1}"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "fixedColor": "blue",
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "align": "auto",
+            "cellOptions": {
+              "mode": "gradient",
+              "type": "gauge",
+              "valueDisplayMode": "color"
+            },
+            "filterable": false,
+            "inspect": false,
+            "minWidth": 75
+          },
+          "links": [
+            {
+              "targetBlank": true,
+              "title": "Detail View",
+              "url": "http://localhost:3000/d/c3dbc4db-cbf5-4d0d-bded-cfd208beb358/chassis-type-details?orgId=1&${Region:queryparam}&${equipmentType:queryparam}&var-chassisType=${__data.fields[\"Chassis Type\"]}&var-siteId=All&var-softwareVersion=${__field.name}\n\n\n"
+            }
+          ],
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 3
+              },
+              {
+                "color": "#6ED0E0",
+                "value": 5
+              },
+              {
+                "color": "#EAB839",
+                "value": 10
+              },
+              {
+                "color": "#EF843C",
+                "value": 110
+              }
+            ]
+          }
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "7210 SAS-M-24F-2XFP"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 155
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "chassisType\\softwareVersion"
+            },
+            "properties": [
+              {
+                "id": "custom.cellOptions",
+                "value": {
+                  "type": "json-view"
+                }
+              },
+              {
+                "id": "custom.align",
+                "value": "auto"
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Chassis Type"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 167
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Chassis Type"
+            },
+            "properties": [
+              {
+                "id": "links",
+                "value": [
+                  {
+                    "targetBlank": true,
+                    "title": "See detail",
+                    "url": "http://localhost:3000/d/c3dbc4db-cbf5-4d0d-bded-cfd208beb358/chassis-type-details?orgId=1&${Region:queryparam}&${equipmentType:queryparam}&var-chassisType=${__data.fields[\"Chassis Type\"]}&var-siteId=All\n\n\n"
+                  }
+                ]
+              },
+              {
+                "id": "custom.cellOptions",
+                "value": {
+                  "type": "json-view"
+                }
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Chassis Type"
+            },
+            "properties": [
+              {
+                "id": "mappings",
+                "value": [
+                  {
+                    "options": {
+                      "7705-SARM ASAP": {
+                        "color": "yellow",
+                        "index": 0,
+                        "text": "7705-SARM ASAP"
+                      },
+                      "7750-SR12": {
+                        "color": "red",
+                        "index": 1,
+                        "text": "7750-SR12"
+                      }
+                    },
+                    "type": "value"
+                  }
+                ]
+              },
+              {
+                "id": "custom.cellOptions",
+                "value": {
+                  "type": "color-text"
+                }
+              }
+            ]
+          }
+        ]
+      },
+      "gridPos": {
+        "h": 13,
+        "w": 24,
+        "x": 0,
+        "y": 9
+      },
+      "id": 4,
+      "options": {
+        "cellHeight": "sm",
+        "footer": {
+          "countRows": false,
+          "enablePagination": false,
+          "fields": [],
+          "reducer": [
+            "sum"
+          ],
+          "show": false
+        },
+        "showHeader": true,
+        "sortBy": []
+      },
+      "pluginVersion": "10.1.5",
+      "targets": [
+        {
+          "dataset": "demodb",
+          "datasource": {
+            "type": "mysql",
+            "uid": "${DS_GRAFANADASHBOARDV0.1}"
+          },
+          "editorMode": "code",
+          "format": "table",
+          "rawQuery": true,
+          "rawSql": "SELECT\r\n    subquery.chassisType,\r\n    subquery.softwareVersion,  \r\n    subquery.SoftwareVersionCount,\r\n    subquery.ExpiredStatus,\r\n    CONCAT(subquery.SoftwareVersionCount, subquery.ExpiredStatus) AS data\r\nFROM (\r\n    SELECT \r\n        chassisType,\r\n        softwareVersion AS softwareVersion,  \r\n        COUNT(*) AS SoftwareVersionCount,\r\n        CASE\r\n            WHEN expiredDate < CURDATE() THEN '[EX]'\r\n            WHEN expiredDate <= CURDATE() + INTERVAL 180 DAY THEN '[GTE]'\r\n            WHEN expiredDate IS NULL OR expiredDate = '' THEN ''\r\n            ELSE ''\r\n        END AS ExpiredStatus\r\n    FROM\r\n        grafana_dashboards.ne_inventory\r\n    WHERE equipmentType IN ($equipmentType) AND region IN ($Region)   AND product in ($vendor)\r\n    GROUP BY\r\n        chassisType, softwareVersion\r\n) AS subquery;",
+          "refId": "A",
+          "sql": {
+            "columns": [
+              {
+                "parameters": [],
+                "type": "function"
+              }
+            ],
+            "groupBy": [
+              {
+                "property": {
+                  "type": "string"
+                },
+                "type": "groupBy"
+              }
+            ],
+            "limit": 50
+          }
+        }
+      ],
+      "title": "Chassis Type versus SW Version (Region: $Region, NW Layer: $equipmentType) ",
+      "transformations": [
+        {
+          "id": "groupingToMatrix",
+          "options": {
+            "columnField": "softwareVersion",
+            "emptyValue": "null",
+            "rowField": "chassisType",
+            "valueField": "data"
+          }
+        },
+        {
+          "id": "organize",
+          "options": {
+            "excludeByName": {},
+            "indexByName": {},
+            "renameByName": {
+              "TiMOS-B-11.0.R10": "11.0.R10",
+              "TiMOS-B-19.10.R1": "19.10.R1",
+              "TiMOS-B-19.10.R3": "19.10.R3",
+              "TiMOS-B-19.10.R6": "19.10.R6",
+              "TiMOS-B-22.10.R4": "B22.10.R4",
+              "TiMOS-B-6.1.R6": "6.1.R6",
+              "TiMOS-B-6.1.R6 ": "6.1.R6",
+              "TiMOS-B-8.0.R3": "8.0.R3",
+              "TiMOS-B-8.0.R7": "8.0.R7",
+              "TiMOS-B-9.0.R3": "9.0.R3",
+              "TiMOS-B-9.0.R5": "9.0.R5",
+              "TiMOS-C-16.0.R10": "16.0.R10",
+              "TiMOS-C-16.0.R4-1": "16.0.R4-1",
+              "TiMOS-C-16.0.R4-1 ": "16.0.R4-1",
+              "TiMOS-C-19.10.R3": "19.10.R3",
+              "TiMOS-C-19.10.R6": "19.10.R6",
+              "TiMOS-C-21.10.R2": "21.10.R2",
+              "TiMOS-C-21.5.R1": "21.5.R1",
+              "TiMOS-C-21.7.R1": "21.7.R1",
+              "TiMOS-C-22.10.R4": "C22.10.R4",
+              "chassisType\\softwareVersion": "Chassis Type",
+              "softwareVersion\\chassisType": "Software Version"
+            }
+          }
+        }
+      ],
+      "type": "table"
+    }
+  ],
+  "refresh": "",
+  "schemaVersion": 38,
+  "style": "dark",
+  "tags": [],
+  "templating": {
+    "list": [
+      {
+        "current": {
+          "selected": true,
+          "text": [
+            "All"
+          ],
+          "value": [
+            "$__all"
+          ]
+        },
+        "hide": 0,
+        "includeAll": true,
+        "label": "Vendor",
+        "multi": true,
+        "name": "vendor",
+        "options": [
+          {
+            "selected": true,
+            "text": "All",
+            "value": "$__all"
+          },
+          {
+            "selected": false,
+            "text": "Nokia",
+            "value": "Nokia"
+          },
+          {
+            "selected": false,
+            "text": "Cisco",
+            "value": "Cisco"
+          }
+        ],
+        "query": "Nokia, Cisco",
+        "queryValue": "",
+        "skipUrlSync": false,
+        "type": "custom"
+      },
+      {
+        "current": {},
+        "datasource": {
+          "type": "mysql",
+          "uid": "${DS_GRAFANADASHBOARDV0.1}"
+        },
+        "definition": "SELECT region\nFROM grafana_dashboards.ne_inventory WHERE region = 'DXB' OR region = 'AUH' OR region = 'NE';",
+        "hide": 0,
+        "includeAll": true,
+        "label": "Select Region",
+        "multi": true,
+        "name": "Region",
+        "options": [],
+        "query": "SELECT region\nFROM grafana_dashboards.ne_inventory WHERE region = 'DXB' OR region = 'AUH' OR region = 'NE';",
+        "refresh": 1,
+        "regex": "",
+        "skipUrlSync": false,
+        "sort": 0,
+        "type": "query"
+      },
+      {
+        "current": {
+          "selected": false,
+          "text": [
+            "All"
+          ],
+          "value": [
+            "$__all"
+          ]
+        },
+        "hide": 0,
+        "includeAll": true,
+        "label": "Network Layer",
+        "multi": true,
+        "name": "equipmentType",
+        "options": [
+          {
+            "selected": true,
+            "text": "All",
+            "value": "$__all"
+          },
+          {
+            "selected": false,
+            "text": "AGG",
+            "value": "AGG"
+          },
+          {
+            "selected": false,
+            "text": "CSG",
+            "value": "CSG"
+          },
+          {
+            "selected": false,
+            "text": "PREAGG",
+            "value": "PREAGG"
+          }
+        ],
+        "query": "AGG,CSG,PREAGG",
+        "queryValue": "",
+        "skipUrlSync": false,
+        "type": "custom"
+      },
+      {
+        "current": {},
+        "datasource": {
+          "type": "mysql",
+          "uid": "${DS_GRAFANADASHBOARDV0.1}"
+        },
+        "definition": "SELECT DISTINCT softwareVersion\nFROM grafana_dashboards.ne_inventory;",
+        "hide": 2,
+        "includeAll": true,
+        "label": "softwareVersion",
+        "multi": true,
+        "name": "softwareVersion",
+        "options": [],
+        "query": "SELECT DISTINCT softwareVersion\nFROM grafana_dashboards.ne_inventory;",
+        "refresh": 1,
+        "regex": "",
+        "skipUrlSync": false,
+        "sort": 0,
+        "type": "query"
+      },
+      {
+        "current": {},
+        "datasource": {
+          "type": "mysql",
+          "uid": "${DS_GRAFANADASHBOARDV0.1}"
+        },
+        "definition": "SELECT GROUP_CONCAT(DISTINCT chassisType) AS chassisTypes\nFROM grafana_dashboards.ne_inventory\nWHERE softwareVersion IN $softwareVersion AND region IN $Region GROUP BY softwareVersion;",
+        "hide": 2,
+        "includeAll": false,
+        "multi": false,
+        "name": "softwareVsChassis",
+        "options": [],
+        "query": "SELECT GROUP_CONCAT(DISTINCT chassisType) AS chassisTypes\nFROM grafana_dashboards.ne_inventory\nWHERE softwareVersion IN $softwareVersion AND region IN $Region GROUP BY softwareVersion;",
+        "refresh": 1,
+        "regex": "",
+        "skipUrlSync": false,
+        "sort": 0,
+        "type": "query"
+      }
+    ]
+  },
+  "time": {
+    "from": "2024-01-03T08:15:18.694Z",
+    "to": "2024-02-28T08:15:18.702Z"
+  },
+  "timepicker": {},
+  "timezone": "",
+  "title": "NEs Dashboard",
+  "uid": "e0d02f0a-4cb7-416b-9f29-a359e35c1219",
+  "version": 13,
+  "weekStart": ""
+}
