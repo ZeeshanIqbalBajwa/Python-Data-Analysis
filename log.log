@@ -1,0 +1,37 @@
+DEBUG:15-Mar-24 05:49:34 - Starting new HTTPS connection (1): 100.126.65.130:443
+DEBUG:15-Mar-24 05:49:34 - https://100.126.65.130:443 "POST /rest-gateway/rest/api/v1/auth/token HTTP/1.1" 200 214
+DEBUG:15-Mar-24 05:49:34 - Starting new HTTPS connection (1): 100.126.65.130:8545
+DEBUG:15-Mar-24 05:49:37 - https://100.126.65.130:8545 "POST /restconf/operations/nsp-inventory:find HTTP/1.1" 200 None
+INFO:15-Mar-24 05:49:37 - entries collected : 1000
+INFO:15-Mar-24 05:49:37 - Total enteries : 8939
+DEBUG:15-Mar-24 05:49:37 - Starting new HTTPS connection (1): 100.126.65.130:8545
+DEBUG:15-Mar-24 05:49:38 - https://100.126.65.130:8545 "POST /restconf/operations/nsp-inventory:find HTTP/1.1" 200 None
+INFO:15-Mar-24 05:49:38 - entries collected : 2000
+INFO:15-Mar-24 05:49:38 - Total enteries : 8939
+DEBUG:15-Mar-24 05:49:38 - Starting new HTTPS connection (1): 100.126.65.130:8545
+DEBUG:15-Mar-24 05:49:39 - https://100.126.65.130:8545 "POST /restconf/operations/nsp-inventory:find HTTP/1.1" 200 None
+INFO:15-Mar-24 05:49:39 - entries collected : 3000
+INFO:15-Mar-24 05:49:39 - Total enteries : 8939
+DEBUG:15-Mar-24 05:49:39 - Starting new HTTPS connection (1): 100.126.65.130:8545
+DEBUG:15-Mar-24 05:49:40 - https://100.126.65.130:8545 "POST /restconf/operations/nsp-inventory:find HTTP/1.1" 200 None
+INFO:15-Mar-24 05:49:40 - entries collected : 4000
+INFO:15-Mar-24 05:49:40 - Total enteries : 8939
+DEBUG:15-Mar-24 05:49:40 - Starting new HTTPS connection (1): 100.126.65.130:8545
+DEBUG:15-Mar-24 05:49:41 - https://100.126.65.130:8545 "POST /restconf/operations/nsp-inventory:find HTTP/1.1" 200 None
+INFO:15-Mar-24 05:49:41 - entries collected : 5000
+INFO:15-Mar-24 05:49:41 - Total enteries : 8939
+DEBUG:15-Mar-24 05:49:41 - Starting new HTTPS connection (1): 100.126.65.130:8545
+DEBUG:15-Mar-24 05:49:43 - https://100.126.65.130:8545 "POST /restconf/operations/nsp-inventory:find HTTP/1.1" 200 None
+INFO:15-Mar-24 05:49:43 - entries collected : 6000
+INFO:15-Mar-24 05:49:43 - Total enteries : 8939
+DEBUG:15-Mar-24 05:49:43 - Starting new HTTPS connection (1): 100.126.65.130:8545
+DEBUG:15-Mar-24 05:49:44 - https://100.126.65.130:8545 "POST /restconf/operations/nsp-inventory:find HTTP/1.1" 200 None
+INFO:15-Mar-24 05:49:44 - entries collected : 7000
+INFO:15-Mar-24 05:49:44 - Total enteries : 8939
+DEBUG:15-Mar-24 05:49:44 - Starting new HTTPS connection (1): 100.126.65.130:8545
+DEBUG:15-Mar-24 05:49:45 - https://100.126.65.130:8545 "POST /restconf/operations/nsp-inventory:find HTTP/1.1" 200 None
+INFO:15-Mar-24 05:49:45 - entries collected : 8000
+INFO:15-Mar-24 05:49:45 - Total enteries : 8939
+DEBUG:15-Mar-24 05:49:45 - Starting new HTTPS connection (1): 100.126.65.130:8545
+DEBUG:15-Mar-24 05:49:46 - https://100.126.65.130:8545 "POST /restconf/operations/nsp-inventory:find HTTP/1.1" 200 None
+INFO:15-Mar-24 05:49:46 - Data has been written to the output.csv
